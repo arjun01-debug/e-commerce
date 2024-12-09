@@ -50,7 +50,24 @@ const Header = () => {
           }}
         >
           <div className="card_details">
-            <p>Your card is empty</p>
+            <i
+              className="fas fa-close smallclose"
+              onClick={handleClose}
+              style={{
+                position: "absolute",
+                top: 2,
+                right: 20,
+                fontSize: 23,
+                cursor: "pointer",
+              }}
+            ></i>
+            <p style={{ fontSize: 22 }}>Your carts is empty</p>
+            <img
+              src="./cart.gif"
+              alt=""
+              className="emptycart_img"
+              style={{ width: "5rem", padding: 10 }}
+            />
           </div>
         </Menu>
       </Container>
