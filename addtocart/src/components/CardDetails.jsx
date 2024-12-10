@@ -66,6 +66,19 @@ const CardDetails = () => {
                     style={{ color: "red", fontSize: 20, cursor: "pointer" }}
                   ></i>
                 </span>
+                <div
+                  className="mt-5 d-flex justify-content-between align-items-center"
+                  style={{
+                    width: 100,
+                    cursor: "pointer",
+                    background: "#ddd",
+                    color: "#111",
+                  }}
+                >
+                  <span style={{ fontSize: 24 }}>-</span>
+                  <span style={{ fontSize: 22 }}>1</span>
+                  <span style={{ fontSize: 24 }}>+</span>
+                </div>
               </div>
             </div>
           </div>
