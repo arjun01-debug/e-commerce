@@ -5,10 +5,14 @@ import Nav from "react-bootstrap/Nav";
 import Badge from "@mui/material/Badge";
 import { NavLink } from "react-router-dom";
 import Menu from "@mui/material/Menu";
+import { useSelector } from "react-redux";
+import Table from 'react-bootstrap/esm/Table';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const cartItems = useSelector((state) => state.cartReducer);
+  console.log("CartItems", cartItems)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,7 +31,7 @@ const Header = () => {
           </NavLink>
         </Nav>
         <Badge
-          badgeContent={4}
+          badgeContent={cartItems.cart.length}
           color="primary"
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
@@ -49,26 +53,36 @@ const Header = () => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <div className="card_details">
-            <i
-              className="fas fa-close smallclose"
-              onClick={handleClose}
-              style={{
-                position: "absolute",
-                top: 2,
-                right: 20,
-                fontSize: 23,
-                cursor: "pointer",
-              }}
-            ></i>
-            <p style={{ fontSize: 22 }}>Your carts is empty</p>
-            <img
-              src="./cart.gif"
-              alt=""
-              className="emptycart_img"
-              style={{ width: "5rem", padding: 10 }}
-            />
-          </div>
+
+          {
+            cartItems.length ?
+              <div className="card_details" style={{width: '24rem', padding:10}}>
+                <Table>
+                  
+                </Table>
+              </div>
+              :
+              <div className="card_details">
+                <i
+                  className="fas fa-close smallclose"
+                  onClick={handleClose}
+                  style={{
+                    position: "absolute",
+                    top: 2,
+                    right: 20,
+                    fontSize: 23,
+                    cursor: "pointer",
+                  }}
+                ></i>
+                <p style={{ fontSize: 22 }}>Your carts is empty</p>
+                <img
+                  src="./cart.gif"
+                  alt=""
+                  className="emptycart_img"
+                  style={{ width: "5rem", padding: 10 }}
+                />
+              </div>
+          }
         </Menu>
       </Container>
     </Navbar>

@@ -1,14 +1,15 @@
-const initiaState = {
+const initialState = {
   cart: [],
 };
 
-const cartReducer = (state = initiaState, action) => {
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_CART":
-      //   state.cart.push(action.payload);
+      const item = action.payload;
+      state.cart.push(item);
       return {
         ...state,
-        cart: state.cart.push(action.payload),
+        cart: state.cart,
       };
     default:
       return {

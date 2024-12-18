@@ -11,11 +11,7 @@ const Cards = () => {
 
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-  console.log("state", state);
-
   const addItemHere = (item) => {
-    console.log("Item", item);
     dispatch(addItem(item));
   };
 
