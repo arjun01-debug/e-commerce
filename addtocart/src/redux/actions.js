@@ -5,4 +5,11 @@ const addItem = (payload) => {
   };
 };
 
-export { addItem };
+const addCurrentElement = (payload) => {
+  return {
+    type : "ADD_CURRENT_ELEMENT",
+    payload
+  }
+}
+
+export { addItem, addCurrentElement };

@@ -3,19 +3,29 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Badge from "@mui/material/Badge";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Table from 'react-bootstrap/esm/Table';
+import { addCurrentElement } from "../redux/actions";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const cartItems = useSelector((state) => state.cartReducer);
-  console.log("CartItems", cartItems)
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (element) => {
+    dispatch(addCurrentElement(element));
+    navigate(`cart/${element.id}`)
+  } 
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -55,10 +65,44 @@ const Header = () => {
         >
 
           {
-            cartItems.length ?
+            cartItems.cart.length ?
               <div className="card_details" style={{width: '24rem', padding:10}}>
                 <Table>
-                  
+                  <thead>
+                    <tr>
+                      <th>
+                        Photo
+                      </th>
+                      <th>
+                        Restaurant Name
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      cartItems.cart.map((element, index) => {
+                        return(
+                          <tr>
+                            <td>
+                              {index + 1}: 
+                              <img onClick={() => handleNavigate(element)} src={element.imgdata} alt={element.rname} style={{width : '5rem', height:'5rem'}}/>
+                            </td>
+                            <td>
+                              <p>{element.rname}</p>
+                              <p>Price: Rs {element.price}</p>
+                              <p>Quantity: {element.qnty}</p>
+                              <p style={{color: 'red', fontSize:20, cursor:'pointer'}}>
+                                <i className="fas fa-trash smalltrash"/>
+                              </p>
+                            </td>
+                            <td className="mt-5" style={{color: 'red', fontSize: 20, cursor: 'pointer'}}>
+                              <i className="fas fa-trash largetrash"/>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
                 </Table>
               </div>
               :

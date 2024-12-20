@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const CardDetails = () => {
+
+  const selectedElement = useSelector((state) => state.cartReducer.currentElement);
+
   return (
     <>
       <div className="container mt-2">
@@ -10,21 +14,21 @@ const CardDetails = () => {
           <div className="iteamsdetails" style={{ padding: "25px" }}>
             <div className="items_img">
               <img
-                src="https://b.zmtcdn.com/data/pictures/9/18857339/8f53919f1175c08cf0f0371b73704f9b_o2_featured_v2.jpg?output-format=webp"
+                src={selectedElement.imgdata}
                 alt="notext"
               />
             </div>
             <div className="details">
               <div className="section1">
                 <strong>Restaurant : </strong>
-                Masala Theory
+                {selectedElement.rname}
               </div>
               <div
                 className="section2"
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>
-                  <strong>Price : </strong>Rs 350
+                  <strong>Price : </strong>Rs {selectedElement.price}
                 </span>
                 <span>
                   <strong>Rating: </strong>
@@ -36,7 +40,7 @@ const CardDetails = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    3★
+                    {selectedElement.rating}★
                   </span>
                 </span>
               </div>
@@ -45,11 +49,10 @@ const CardDetails = () => {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>
-                  <strong>Dishes : </strong>North Indian, Biryani, Mughlai
+                  <strong>Dishes : </strong>{selectedElement.address}
                 </span>
                 <span>
-                  <strong>Order Review: </strong>1175+ orders placed from this
-                  location
+                  <strong>Order Review: </strong>{selectedElement.somedata}
                 </span>
               </div>
               <div

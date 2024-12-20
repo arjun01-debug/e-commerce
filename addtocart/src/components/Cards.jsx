@@ -3,11 +3,11 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Cardsdata from "./CardsData";
 import "./style.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem } from "../redux/actions";
 
 const Cards = () => {
-  const [data, setData] = useState(Cardsdata);
+  const [data] = useState(Cardsdata);
 
   const dispatch = useDispatch();
 

@@ -1,5 +1,6 @@
 const initialState = {
   cart: [],
+  currentElement : {}
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cart: state.cart,
       };
+    case "ADD_CURRENT_ELEMENT":
+      return {
+        ...state,
+        currentElement : action.payload
+      }
     default:
       return {
         ...state,
