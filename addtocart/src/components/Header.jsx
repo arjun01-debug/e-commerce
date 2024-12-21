@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import Table from 'react-bootstrap/esm/Table';
-import { addCurrentElement } from "../redux/actions";
+import { addCurrentElement, deleteItem } from "../redux/actions";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -19,8 +19,13 @@ const Header = () => {
 
   const handleNavigate = (element) => {
     dispatch(addCurrentElement(element));
+    handleClose();
     navigate(`cart/${element.id}`)
-  } 
+  }
+  
+  const handleDelete = (id) => {
+    dispatch(deleteItem(id));
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -92,11 +97,11 @@ const Header = () => {
                               <p>Price: Rs {element.price}</p>
                               <p>Quantity: {element.qnty}</p>
                               <p style={{color: 'red', fontSize:20, cursor:'pointer'}}>
-                                <i className="fas fa-trash smalltrash"/>
+                                <i className="fas fa-trash smalltrash" onClick={() => handleDelete(element.id)}/>
                               </p>
                             </td>
                             <td className="mt-5" style={{color: 'red', fontSize: 20, cursor: 'pointer'}}>
-                              <i className="fas fa-trash largetrash"/>
+                              <i className="fas fa-trash largetrash" onClick={() => handleDelete(element.id)}/>
                             </td>
                           </tr>
                         )

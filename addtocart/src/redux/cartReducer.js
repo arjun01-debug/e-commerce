@@ -17,6 +17,12 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         currentElement : action.payload
       }
+    case "DELETE_ELEMENT":
+      const updatedElements = state.cart.filter((ele) => ele.id!==action.payload);
+      return {
+        ...state,
+        cart : updatedElements
+      }
     default:
       return {
         ...state,

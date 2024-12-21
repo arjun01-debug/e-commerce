@@ -12,4 +12,11 @@ const addCurrentElement = (payload) => {
   }
 }
 
-export { addItem, addCurrentElement };
+const deleteItem = (payload) => {
+  return {
+    type : 'DELETE_ELEMENT',
+    payload
+  }
+}
+
+export { addItem, addCurrentElement, deleteItem };
