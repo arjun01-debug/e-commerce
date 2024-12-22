@@ -4,16 +4,23 @@ import Card from "react-bootstrap/Card";
 import Cardsdata from "./CardsData";
 import "./style.css";
 import { useDispatch } from "react-redux";
-import { addItem } from "../redux/actions";
+import { addCurrentElement, addItem } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const Cards = () => {
   const [data] = useState(Cardsdata);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const addItemHere = (item) => {
     dispatch(addItem(item));
   };
+
+  const addDetails = (element) => {
+    dispatch(addCurrentElement(element));
+    navigate(`cart/${element.id}`)
+  }
 
   return (
     <>
@@ -31,6 +38,7 @@ const Cards = () => {
                   src={element.imgdata}
                   style={{ height: "10rem" }}
                   className="mt-3"
+                  onClick={() => addDetails(element)}
                 />
                 <Card.Body>
                   <Card.Title>{element.rname}</Card.Title>

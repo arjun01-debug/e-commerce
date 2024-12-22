@@ -1,10 +1,33 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addItem, decreaseItemQnty, deleteItem } from "../redux/actions";
 
 const CardDetails = () => {
 
-  const selectedElement = useSelector((state) => state.cartReducer.currentElement);
+  const all = useSelector((state) => state.cartReducer);
+  const selectedElement = all.currentElement;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleDelete = (id) => {
+    dispatch(deleteItem(id));
+    navigate('/');
+  }
+
+  const handleNegative = (element) => {
+    if(element.qnty > 1){
+      dispatch(decreaseItemQnty(element.id));
+    }
+    else{
+      dispatch(deleteItem(element.id));
+      navigate('/');
+    }
+  }
+
+  const handlePositive = (element) => {
+    dispatch(addItem(element));
+  }
   return (
     <>
       <div className="container mt-2">
@@ -60,13 +83,14 @@ const CardDetails = () => {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 <span>
-                  <strong>Total : </strong>Rs 350
+                  <strong>Total : </strong>Rs {selectedElement.qnty * selectedElement.price}
                 </span>
                 <span>
                   <strong>Remove : </strong>
                   <i
                     className="fas fa-trash"
                     style={{ color: "red", fontSize: 20, cursor: "pointer" }}
+                    onClick={() => handleDelete(selectedElement.id)}
                   ></i>
                 </span>
                 <div
@@ -78,9 +102,9 @@ const CardDetails = () => {
                     color: "#111",
                   }}
                 >
-                  <span style={{ fontSize: 24 }}>-</span>
-                  <span style={{ fontSize: 22 }}>1</span>
-                  <span style={{ fontSize: 24 }}>+</span>
+                  <span style={{ fontSize: 24 }} onClick={() => handleNegative(selectedElement)}>-</span>
+                  <span style={{ fontSize: 22 }}>{selectedElement.qnty}</span>
+                  <span style={{ fontSize: 24 }} onClick={() => handlePositive(selectedElement)}>+</span>
                 </div>
               </div>
             </div>

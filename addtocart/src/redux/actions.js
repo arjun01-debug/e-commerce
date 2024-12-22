@@ -19,4 +19,11 @@ const deleteItem = (payload) => {
   }
 }
 
-export { addItem, addCurrentElement, deleteItem };
+const decreaseItemQnty = (payload) => {
+  return {
+    type : 'DECREASE_COUNT',
+    payload
+  }
+}
+
+export { addItem, addCurrentElement, deleteItem, decreaseItemQnty };

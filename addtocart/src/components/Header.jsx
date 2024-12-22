@@ -13,6 +13,10 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const cartItems = useSelector((state) => state.cartReducer);
+  let price = 0;
+  cartItems.cart.map((item) => {
+    price = price + (item.price * item.qnty);
+  })
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -25,6 +29,9 @@ const Header = () => {
   
   const handleDelete = (id) => {
     dispatch(deleteItem(id));
+    if(cartItems?.currentElement?.id === id){
+      navigate('/');
+    }
   }
 
   const handleClick = (event) => {
@@ -90,7 +97,7 @@ const Header = () => {
                           <tr>
                             <td>
                               {index + 1}: 
-                              <img onClick={() => handleNavigate(element)} src={element.imgdata} alt={element.rname} style={{width : '5rem', height:'5rem'}}/>
+                              <img onClick={() => handleNavigate(element)} src={element.imgdata} alt={element.rname} style={{width : '5rem', height:'5rem', cursor: 'pointer'}}/>
                             </td>
                             <td>
                               <p>{element.rname}</p>
@@ -107,6 +114,7 @@ const Header = () => {
                         )
                       })
                     }
+                    <p className='text-center'>Total :₹ {price}</p>
                   </tbody>
                 </Table>
               </div>
