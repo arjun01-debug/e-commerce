@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Badge from "@mui/material/Badge";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import Table from 'react-bootstrap/esm/Table';
@@ -87,6 +87,11 @@ const Header = () => {
                       </th>
                       <th>
                         Restaurant Name
+                      </th>
+                      <th>
+                        <Link to='/allItems'>
+                          All items
+                        </Link>
                       </th>
                     </tr>
                   </thead>

@@ -1,18 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { addItem, decreaseItemQnty, deleteItem } from "../redux/actions";
 
-const CardDetails = () => {
+const CardDetails = ({selectedElement}) => {
 
-  const all = useSelector((state) => state.cartReducer);
-  const selectedElement = all.currentElement;
+  const location = useLocation();
+  const allItems = useSelector((state) => state.cartReducer);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const handleDelete = (id) => {
     dispatch(deleteItem(id));
-    navigate('/');
+    console.log("Inside", allItems);
+    if(location.pathname.match('cart')){
+      navigate('/');
+    }
   }
 
   const handleNegative = (element) => {
@@ -21,7 +24,9 @@ const CardDetails = () => {
     }
     else{
       dispatch(deleteItem(element.id));
+      if(location.pathname.match('cart')){
       navigate('/');
+    }
     }
   }
 
