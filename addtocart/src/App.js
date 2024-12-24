@@ -5,18 +5,28 @@ import Cards from "./components/Cards";
 import CardDetails from "./components/CardDetails";
 import { useSelector } from "react-redux";
 import AllCards from "./components/AllCards";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
-  const all = useSelector((state) => state.cartReducer);
-  const selectedElement = all.currentElement;
-  
+  // Getting the data from the reducer
+  const allCartData = useSelector((state) => state.cartReducer);
+
   return (
     <div>
       <Header />
       <Routes>
         <Route path="/" element={<Cards />} />
-        <Route path="/cart/:id" element={<CardDetails selectedElement = {selectedElement}/>} />
-        <Route path="/allItems" element={<AllCards allItems = {all.cart}/>} />
+        <Route
+          path="/cart/:id"
+          element={
+            <>
+              <h2 className="text-center">Items Details Page</h2>
+              <CardDetails
+                selectedElement={allCartData.currentElement} />
+            </>
+          } />
+        <Route path="/allItems" element={<AllCards allItems={allCartData.cart} />} />
+        <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </div>
   );

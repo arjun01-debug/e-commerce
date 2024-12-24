@@ -1,18 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addItem, decreaseItemQnty, deleteItem } from "../redux/actions";
 
 const CardDetails = ({selectedElement}) => {
 
   const location = useLocation();
-  const allItems = useSelector((state) => state.cartReducer);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleDelete = (id) => {
     dispatch(deleteItem(id));
-    console.log("Inside", allItems);
     if(location.pathname.match('cart')){
       navigate('/');
     }
@@ -25,18 +23,23 @@ const CardDetails = ({selectedElement}) => {
     else{
       dispatch(deleteItem(element.id));
       if(location.pathname.match('cart')){
-      navigate('/');
-    }
+        navigate('/');
+      }
     }
   }
 
   const handlePositive = (element) => {
     dispatch(addItem(element));
   }
+
+  useEffect(() => {
+    if(!Object.keys(selectedElement).length){
+      navigate('/');
+    }
+  }, [selectedElement, navigate])
   return (
     <>
       <div className="container mt-2">
-        <h2 className="text-center">Items Details Page</h2>
 
         <section className="container mt-3">
           <div className="iteamsdetails" style={{ padding: "25px" }}>

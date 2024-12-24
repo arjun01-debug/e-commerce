@@ -13,13 +13,13 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const cartItems = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   let price = 0;
   cartItems.cart.map((item) => {
     price = price + (item.price * item.qnty);
   })
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const handleNavigate = (element) => {
     dispatch(addCurrentElement(element));
@@ -41,6 +41,7 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
   return (
     <Navbar bg="dark" data-bs-theme="dark" style={{ height: "60px" }}>
       <Container>

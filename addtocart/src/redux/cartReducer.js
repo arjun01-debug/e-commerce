@@ -5,7 +5,7 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_CART":{
+    case "ADD_ELEMENT_CART":{
       const item = action.payload;
       const updatedElements = state.cart;
       const len = updatedElements.length;
@@ -36,7 +36,8 @@ const cartReducer = (state = initialState, action) => {
       const updatedElements = state.cart.filter((ele) => ele.id!==action.payload);
       return {
         ...state,
-        cart : updatedElements
+        cart : updatedElements,
+        currentElement : {}
       }
     case "DECREASE_COUNT":
       const index = state.cart.findIndex((ele) => ele.id === action.payload);

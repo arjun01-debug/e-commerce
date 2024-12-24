@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Cardsdata from "./CardsData";
@@ -8,7 +8,8 @@ import { addCurrentElement, addItem } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 const Cards = () => {
-  const [data] = useState(Cardsdata);
+  
+  const data = Cardsdata.map((element) => ({...element}));
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Cards = () => {
     dispatch(addCurrentElement(element));
     navigate(`cart/${element.id}`)
   }
+
 
   return (
     <>

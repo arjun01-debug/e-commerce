@@ -1,6 +1,6 @@
 const addItem = (payload) => {
   return {
-    type: "ADD_CART",
+    type: "ADD_ELEMENT_CART",
     payload,
   };
 };
